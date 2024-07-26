@@ -17,12 +17,9 @@ fetch(apiUrl)
       const capaDaComic = document.createElement('img');
       titulo.innerHTML = data.data.results[i].title;
       if (data.data.results[i].thumbnail.path) {
-        console.log(data.data.results[i].thumbnail.path)
         capaDaComic.src = data.data.results[i].thumbnail.path + "." + data.data.results[i].thumbnail.extension;}
       else {
-        console.log(data.data.results[i].images[0].path)
         capaDaComic.src = data.data.results[i].images.path + "." + data.data.results[i].thumbnail.extension;}
-      console.log(data.data.results[i])
       capaDaComic.style.height = "480px";
       capaDaComic.style.width = "320px";
       novaDiv.appendChild(titulo);
@@ -37,23 +34,36 @@ fetch(apiUrl)
   
 }
 var contador = 0;
-var incremento = 0;
+var incrementoNum = 0;
+function incremento(){
+  contador += 1;
+  tesoura = -2;
+  if (contador > 5){
+    tesoura -=1;
+  }
+  if (contador > 50){
+    tesoura -=1;
+  }
+  incrementoNum += 20;
+  var strIncremento = incrementoNum.toString();
+  apiUrl = apiUrl.slice(0, tesoura);
+  apiUrl = apiUrl+strIncremento;
+}
+
 botaoPesquisa.onclick = function() {
   pesquisa()}
 botaoProx.onclick = function() {
-  contador += 1
-  tesoura = -2
-  console.log(contador)
-  if (contador > 5){
-    tesoura -=1
-  }
-  if (contador > 50){
-    tesoura -=1
-  }
-  console.log(tesoura)
-  incremento += 20;
-  var strIncremento = incremento.toString();
-  apiUrl = apiUrl.slice(0, tesoura)
-  apiUrl = apiUrl+strIncremento
-  console.log(apiUrl)
+  incremento()
   pesquisa()}
+function posicaoScroll(){
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const documentHeight = document.documentElement.offsetHeight;
+  return scrollPosition >= documentHeight;
+}
+window.addEventListener("scroll",()=>{
+  setTimeout(function(){if(posicaoScroll()){
+    incremento();
+    pesquisa();
+  }
+  },5000);
+})
