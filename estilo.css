@@ -24,3 +24,21 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+div{
+    display: inline-block;
+
+}
+#botaoProx{
+    position :sticky ;
+    bottom : 0;
+    width: 100%;
+    height: 40px;
+}
+#botaoPesquisa{
+    position:relative;
+    width: 100%;
+}
+#comic{
+    border: 2px,solid;
+    margin: 1px;
+}
